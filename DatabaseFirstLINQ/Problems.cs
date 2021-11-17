@@ -22,9 +22,9 @@ namespace DatabaseFirstLINQ
             //ProblemFive();
             //ProblemSix();
             //ProblemSeven();
-            ProblemEight();
+            //ProblemEight();
             //ProblemNine();
-            //ProblemTen();
+            ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -149,14 +149,24 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "oda@gmail.com" and returns the sum of all of the products prices.
             // HINT: End of query will be: .Select(sc => sc.Product.Price).Sum();
             // Then print the total of the shopping cart to the console.
-
+            Console.WriteLine("Problem Nine:");
+            var odaProducts = _context.ShoppingCarts.Include(op => op.Product).Include(op => op.User).Where(op => op.User.Email == "oda@gmail.com").Select(sc => sc.Product.Price).Sum();
+            Console.WriteLine(odaProducts);
         }
 
         private void ProblemTen()
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-
+            Console.WriteLine("Problem Ten:");
+            var userEmployee = _context.UserRoles.Where(u => u.Role.RoleName == "Employee").Select(u => u.User.Id); 
+            var products = _context.ShoppingCarts.Include(op => op.Product).Include(op => op.User).Where(op => userEmployee.Contains(op.UserId));
+            foreach ( var ShoppingCart in products)
+            {
+                Console.WriteLine(
+                    $"Email:{ShoppingCart.User.Email}\n"  + $"Product:{ShoppingCart.Product.Name} \n" + $"Price:{ShoppingCart.Product.Price}\n" + $"Quanity:{ShoppingCart.Quantity}\n"
+                    );
+            }
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
