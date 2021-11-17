@@ -15,14 +15,14 @@ namespace DatabaseFirstLINQ
         }
         public void RunLINQQueries()
         {
-            ProblemOne();
-            ProblemTwo();
-            ProblemThree();
-            ProblemFour();
+            //ProblemOne();
+            //ProblemTwo();
+            //ProblemThree();
+            //problemfour();
             //ProblemFive();
             //ProblemSix();
             //ProblemSeven();
-            //ProblemEight();
+            ProblemEight();
             //ProblemNine();
             //ProblemTen();
             //ProblemEleven();
@@ -88,16 +88,33 @@ namespace DatabaseFirstLINQ
 
         private void ProblemFive()
         {
+            Console.WriteLine("Problem Five:");
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
+            DateTime enddate = new DateTime (2016,01,01);
+            var Registered2016 = _context.Users.Where(users => users.RegistrationDate < enddate) ;
 
+
+            foreach (User u in Registered2016)
+            {
+                Console.WriteLine(u.Email+" "+u.RegistrationDate);
+             }
         }
 
         private void ProblemSix()
         {
             // Write a LINQ query that gets all of the users who registered AFTER 2016 and BEFORE 2018
             // Then print each user's email and registration date to the console.
+            Console.WriteLine("Problem Six:");
+            DateTime startdate = new DateTime(2016, 01, 01);
+            DateTime enddate = new DateTime(2018, 01, 01);
+            var Registered20162018 = _context.Users.Where(users => users.RegistrationDate >= startdate && users.RegistrationDate <= enddate);
 
+
+            foreach (User u in Registered20162018)
+            {
+                Console.WriteLine(u.Email + " " + u.RegistrationDate);
+            }
         }
 
         // <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
@@ -106,6 +123,7 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the users who are assigned to the role of Customer.
             // Then print the users email and role name to the console.
+            Console.WriteLine("Problem Seven:");
             var customerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Customer");
             foreach (UserRole userRole in customerUsers)
             {
@@ -117,6 +135,12 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "afton@gmail.com".
             // Then print the product's name, price, and quantity to the console.
+            Console.WriteLine("Problem Eight:");
+            var products = _context.ShoppingCarts.Include(op => op.Product).Include(op => op.User).Where(op => op.User.Email == "afton@gmail.com");
+            foreach (ShoppingCart product in products)
+            {
+                Console.WriteLine(product.Product.Name + " $" + product.Product.Price + " " + product.Quantity);
+            }
 
         }
 
