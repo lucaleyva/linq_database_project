@@ -28,13 +28,13 @@ namespace DatabaseFirstLINQ
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
-            ProblemFourteen();
+            //ProblemFourteen();
             //ProblemFifteen();
             //ProblemSixteen();
             //ProblemSeventeen();
             //ProblemEighteen();
             //ProblemNineteen();
-            //ProblemTwenty();
+            ProblemTwenty();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -192,9 +192,9 @@ namespace DatabaseFirstLINQ
             Console.WriteLine("Problem Twelve");
             Product newProduct = new Product()
             {
-                Name = "Boomsticka",
-                Description = "Pull trigger it go BOOM!",
-                Price = 350
+                Name = "Parent Phone Ignorer",
+                Description = "DOn't feel like talking to your parents? Don't!",
+                Price = 1
             };
             _context.Products.Add(newProduct);
             _context.SaveChanges();
@@ -219,8 +219,8 @@ namespace DatabaseFirstLINQ
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
             Console.WriteLine("Problem Fourteen");
-            var productId = _context.Products.Where(p => p.Name == "Boomsticka").Select(p => p.Id).SingleOrDefault();
-            var userId = _context.Users.Where(p => p.Email == "bibi@gmail.com").Select(u => u.Id).SingleOrDefault();
+            var productId = _context.Products.Where(p => p.Name == "Parent Phone Ignorer").Select(p => p.Id).SingleOrDefault();
+            var userId = _context.Users.Where(p => p.Email == "david@gmail.com").Select(u => u.Id).SingleOrDefault();
 
             ShoppingCart newProduct = new ShoppingCart()
             {
@@ -247,7 +247,10 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
-
+            var product = _context.Products.Where(p => p.Name == "Parent Phone Ignorer").SingleOrDefault();
+            product.Price = 2;
+            _context.Products.Update(product);
+            _context.SaveChanges();
         }
 
         private void ProblemSeventeen()
@@ -271,7 +274,9 @@ namespace DatabaseFirstLINQ
         private void ProblemEighteen()
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
-
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(userRole);
+            _context.SaveChanges();
         }
 
         private void ProblemNineteen()
@@ -289,7 +294,9 @@ namespace DatabaseFirstLINQ
         private void ProblemTwenty()
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
-
+            var userOda = _context.Users.Where(od => od.Email == "oda@gmail.com").SingleOrDefault();
+            _context.Users.Remove(userOda);
+            _context.SaveChanges();
         }
 
         // <><><><><><><><> BONUS PROBLEMS <><><><><><><><><>
