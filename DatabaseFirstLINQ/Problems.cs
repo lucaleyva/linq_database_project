@@ -34,7 +34,8 @@ namespace DatabaseFirstLINQ
             //ProblemSeventeen();
             //ProblemEighteen();
             //ProblemNineteen();
-            ProblemTwenty();
+            //ProblemTwenty();
+            BonusOne();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -303,10 +304,56 @@ namespace DatabaseFirstLINQ
 
         private void BonusOne()
         {
+            Console.WriteLine("BonusOne");
             // Prompt the user to enter in an email and password through the console.
+            Console.WriteLine("TELL ME YOUR EMAIL, NOW!: ");
+            string email = Console.ReadLine();
+            Console.WriteLine("PUT IN YOUR PASSWORD! DO IT! DO IT NOW!: ");
+            string password = Console.ReadLine();
+            //bool check = false;
+            var userAll = _context.Users.Where(u => u.Email == email).SingleOrDefault();
+
+            if(userAll != null)
+            {
+                if(userAll.Email == email && userAll.Password == password)
+                {
+                    Console.WriteLine("Signed In!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Email or Password.");
+                }
+            }
+
+
+            //foreach (User  user in userAll)
+            //{
+            //    if (user != null)
+            //    {
+            //        if (user.Email == email && user.Password == password)
+            //        {
+            //            check = true;
+            //        }
+
+            //    }
+            //}
+            //if (check === true)
+            //{
+            //    Console.WriteLine("Signed In!");
+            //}
+            //else(check === false)
+            //{
+
+            //}
             // Take the email and password and check if the there is a person that matches that combination.
-            // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+            //if (user != null)
+            //{
+                
+            //
+        
         }
+        // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+
 
         private void BonusTwo()
         {
