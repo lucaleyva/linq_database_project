@@ -24,11 +24,11 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
-            //ProblemFourteen();
+            ProblemFourteen();
             //ProblemFifteen();
             //ProblemSixteen();
             //ProblemSeventeen();
@@ -176,6 +176,7 @@ namespace DatabaseFirstLINQ
         private void ProblemEleven()
         {
             // Create a new User object and add that user to the Users table using LINQ.
+            Console.WriteLine("Problem Eleven");
             User newUser = new User()
             {
                 Email = "david@gmail.com",
@@ -188,7 +189,16 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
-
+            Console.WriteLine("Problem Twelve");
+            Product newProduct = new Product()
+            {
+                Name = "Boomsticka",
+                Description = "Pull trigger it go BOOM!",
+                Price = 350
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
+;
         }
 
         private void ProblemThirteen()
@@ -208,6 +218,18 @@ namespace DatabaseFirstLINQ
         private void ProblemFourteen()
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+            Console.WriteLine("Problem Fourteen");
+            var productId = _context.Products.Where(p => p.Name == "Boomsticka").Select(p => p.Id).SingleOrDefault();
+            var userId = _context.Users.Where(p => p.Email == "bibi@gmail.com").Select(u => u.Id).SingleOrDefault();
+
+            ShoppingCart newProduct = new ShoppingCart()
+            {
+                UserId = userId,
+                ProductId = productId,
+                Quantity = 1
+            };
+            _context.ShoppingCarts.Add(newProduct);
+            _context.SaveChanges();
 
         }
 
